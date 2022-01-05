@@ -26,11 +26,6 @@
 </template>
 <script>
 export default {
-  data() {
-    return {
-
-    };
-  },
   created() {
   },
   methods: {
@@ -39,7 +34,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .dataListLayout {
   background-color:#f7f8fa;
   padding-bottom: 20px;

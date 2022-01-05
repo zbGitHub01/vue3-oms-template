@@ -1,4 +1,4 @@
-import { createApp } from 'vue';
+import { createApp, computed, reactive, ref } from 'vue';
 import ElementPlus from 'element-plus';
 import App from './App.vue';
 import router from './router';
@@ -7,28 +7,21 @@ import router from './router';
 import 'normalize.css/normalize.css'; // CSS重置的现代替代方案
 import 'element-plus/dist/index.css';
 
-// createApp(App)
-//   .use(ElementPlus)
-//   .use(router)
-//   .mount('#app');
-
 let instance = null;
 
 function render({ data = {}, container } = {}) {
-  instance = createApp({
-    router,
-    data() {
-      return {
-        parentRouter: data.router,
-        getRsaCode: data.getRsaCode,
-        parentVuex: data.store,
-      };
-    },
-    // render: h => h(App),
-  }).use(ElementPlus).use(router)
-    .mount(container ? container.querySelector('#app') : '#app');
+  instance = createApp(App, data);
+  instance.use(ElementPlus);
+  instance.use(router);
+  instance.mount(container ? container.querySelector('#app') : '#app');
+  // 注册权益指令;
+  instance.directive('permission', data.permission);
 
+  instance.config.globalProperties.$computed = computed;
+  instance.config.globalProperties.$reactive = reactive;
+  instance.config.globalProperties.$ref = ref;
 
+  // console.log(instance._props);
   if (window.__POWERED_BY_QIANKUN__) {
     // data.store.dispatch('permission/changeRouter', asyncRoutes);
     // store.commit('user/SET_TOKEN', data.store.getters.token);
@@ -40,8 +33,7 @@ function render({ data = {}, container } = {}) {
     //   data.store.commit('app/PAGE_TITLE', `${process.env.VUE_APP_TITLE}-${to.meta.title}`);
     // });
   }
-  // 注册权益指令
-  instance.directive('permission', data.permission);
+
 }
 
 if (!window.__POWERED_BY_QIANKUN__) {

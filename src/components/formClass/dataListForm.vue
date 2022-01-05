@@ -84,13 +84,13 @@
 
 <script>
 import { regionData } from 'element-china-area-data';
+import { computed, reactive } from 'vue';
 const flatten = require('flat');
 const unflatten = require('flat').unflatten;
 
 export default {
 
   props: {
-    // fields: Array,
     fields: {
       type: Array,
       default: () => {
@@ -105,37 +105,80 @@ export default {
     },
   },
 
-  computed: {
-    formFields() {
-      const fields = [];
-      this.fields.forEach(e => {
-        if (e.type) {
-          fields.push(e);
-        }
-      });
-      return fields;
-    },
-  },
+  setup(props, { emit }) {
 
-  data() {
-    return {
+    const state = reactive({
       regionOptions: regionData,
-      flatEntity: flatten(this.defaultValues),
+      flatEntity: flatten(props.defaultValues),
+    });
+
+    const formValue = computed({
+      formFields: () => {
+        const fields = [];
+        props.fields.forEach(e => {
+          if (e.type) {
+            fields.push(e);
+          }
+        });
+        return fields;
+      },
+    });
+
+    const getEntity = () => {
+      return unflatten(state.flatEntity);
+    };
+
+    const handleSubmit = () => {
+      emit('submit', getEntity());
+    };
+
+    const handleReset = () => {
+      state.flatEntity = {};
+      emit('reset', getEntity());
+    };
+
+    return {
+      state,
+      formValue,
+      handleSubmit,
+      handleReset,
     };
   },
 
-  methods: {
-    getEntity() {
-      return unflatten(this.flatEntity);
-    },
-    handleSubmit() {
-      this.$emit('submit', this.getEntity());
-    },
-    handleReset() {
-      this.flatEntity = {};
-      this.$emit('reset', this.getEntity());
-    },
-  },
+  // const { title } = toRefs(props)
+  // setup (props, context/{ attrs, slots, emit }) {
+
+  // computed: {
+  //   formFields() {
+  //     const fields = [];
+  //     this.fields.forEach(e => {
+  //       if (e.type) {
+  //         fields.push(e);
+  //       }
+  //     });
+  //     return fields;
+  //   },
+  // },
+
+  // data() {
+  //   return {
+  //     regionOptions: regionData,
+  //     flatEntity: flatten(this.defaultValues),
+  //   };
+  // },
+
+  // methods: {
+  //   getEntity() {
+  //     return unflatten(this.flatEntity);
+  //   },
+  //   handleSubmit() {
+  //     this.$emit('submit', this.getEntity());
+  //   },
+  //   handleReset() {
+  //     this.flatEntity = {};
+  //     this.$emit('reset', this.getEntity());
+  //   },
+  // },
 
 };
 </script>

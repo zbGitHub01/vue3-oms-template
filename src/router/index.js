@@ -18,6 +18,32 @@ export const asyncRoutes = [
   },
   {
     path: '/super',
+    meta: {
+      title: '订单管理',
+      icon: 'icon-ddgl',
+      roles: [ 'sys:operation:manage' ],
+    },
+    children: [
+      {
+        path: '/insureList',
+        component: () => import('@/views/insure/insureList'),
+        meta: {
+          title: '投保订单',
+          roles: [ 'sys:article:list' ],
+        },
+      },
+      {
+        path: '/reInsureList',
+        component: () => import('@/views/insure/reInsureList'),
+        meta: {
+          title: '退保订单',
+          roles: [ 'sys:customer:list' ],
+        },
+      },
+    ],
+  },
+  {
+    path: '/super',
     children: [
       {
         path: '/dict',
@@ -77,7 +103,7 @@ filtersRouters(asyncRoutes);
 const newRouter = () =>
   createRouter({
     // base: window.__POWERED_BY_QIANKUN__ ? '/super/' : '/app/zbsz-super/',
-    history: createWebHistory(process.env.VUE_APP_BASE_URL),
+    history: createWebHistory(),
     // scrollBehavior: () => ({ y: 0 }),
     routes: constantRoutes,
   });
