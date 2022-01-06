@@ -14,54 +14,21 @@
       <el-table
         :data="tableData"
         style="width: 100%"
-        max-height="250"
       >
         <el-table-column
-          fixed
           prop="date"
           label="Date"
-          width="150"
+          width="180"
         />
         <el-table-column
           prop="name"
           label="Name"
-          width="120"
-        />
-        <el-table-column
-          prop="state"
-          label="State"
-          width="120"
-        />
-        <el-table-column
-          prop="city"
-          label="City"
-          width="120"
+          width="180"
         />
         <el-table-column
           prop="address"
           label="Address"
-          width="600"
         />
-        <el-table-column
-          prop="zip"
-          label="Zip"
-          width="120"
-        />
-        <el-table-column
-          fixed="right"
-          label="Operations"
-          width="120"
-        >
-          <!-- <template #default="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click.prevent="deleteRow(scope.$index)"
-            >
-              Remove
-            </el-button>
-          </template> -->
-        </el-table-column>
       </el-table>
     </template>
   </DataListLayout>
@@ -71,7 +38,7 @@
 import DataListLayout from '@/components/layout/DataList';
 import DataListForm from '@/components/formClass/DataListForm';
 import { getCurrentInstance } from 'vue';
-import list from './list.js';
+import list from './list';
 
 export default {
   components: {
@@ -94,16 +61,11 @@ export default {
 
     };
 
-    const deleteRow = index => {
-      tableData.value.splice(index, 1);
-    };
-
     return {
       state,
       tableData,
       queryData,
       resetQuery,
-      deleteRow,
     };
   },
 
