@@ -9,15 +9,15 @@
       :label="item.name"
       :prop="item.property"
     >
-      <span v-if="item.type === 'label'">{{ flatEntity[item.property] }}</span>
+      <span v-if="item.type === 'label'">{{ state.flatEntity[item.property] }}</span>
       <el-input
         v-if="item.type === 'input'"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         :placeholder="item.placeholder"
       />
       <el-select
         v-if="item.type === 'select'"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         :placeholder="item.placeholder"
       >
         <el-option
@@ -31,19 +31,19 @@
         v-if="item.type === 'area-select'"
         size="large"
         :options="regionOptions"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         :placeholder="item.placeholder"
       />
       <el-date-picker
         v-if="item.type === 'date'"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         type="date"
         value-format="timestamp"
         :placeholder="item.placeholder"
       />
       <el-date-picker
         v-if="item.type === 'daterange'"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         type="daterange"
         value-format="timestamp"
         :placeholder="item.placeholder"
@@ -53,18 +53,18 @@
         type="textarea"
         :rows="item.rows"
         :placeholder="item.placeholder"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
       />
       <el-input-number
         v-if="item.type === 'numberic'"
         :min="item.min"
         :max="item.max"
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
       />
       <el-input
         v-if="item.type === 'input-secret'"
         show-password
-        v-model="flatEntity[item.property]"
+        v-model="state.flatEntity[item.property]"
         :placeholder="item.placeholder"
       />
     </el-form-item>
@@ -112,17 +112,16 @@ export default {
       flatEntity: flatten(props.defaultValues),
     });
 
-    const formValue = computed({
-      formFields: () => {
-        const fields = [];
-        props.fields.forEach(e => {
-          if (e.type) {
-            fields.push(e);
-          }
-        });
-        return fields;
-      },
-    });
+    const formFields = computed(() => {
+      const fields = [];
+      props.fields.forEach(e => {
+        if (e.type) {
+          fields.push(e);
+        }
+      });
+      return fields;
+    }
+    );
 
     const getEntity = () => {
       return unflatten(state.flatEntity);
@@ -139,50 +138,15 @@ export default {
 
     return {
       state,
-      formValue,
+      formFields,
       handleSubmit,
       handleReset,
     };
   },
-
-  // const { title } = toRefs(props)
-  // setup (props, context/{ attrs, slots, emit }) {
-
-  // computed: {
-  //   formFields() {
-  //     const fields = [];
-  //     this.fields.forEach(e => {
-  //       if (e.type) {
-  //         fields.push(e);
-  //       }
-  //     });
-  //     return fields;
-  //   },
-  // },
-
-  // data() {
-  //   return {
-  //     regionOptions: regionData,
-  //     flatEntity: flatten(this.defaultValues),
-  //   };
-  // },
-
-  // methods: {
-  //   getEntity() {
-  //     return unflatten(this.flatEntity);
-  //   },
-  //   handleSubmit() {
-  //     this.$emit('submit', this.getEntity());
-  //   },
-  //   handleReset() {
-  //     this.flatEntity = {};
-  //     this.$emit('reset', this.getEntity());
-  //   },
-  // },
-
 };
 </script>
 
-<style>
+<style lang="less" scoped>
+
 
 </style>

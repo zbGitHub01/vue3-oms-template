@@ -1,3 +1,30 @@
+
+<script setup>
+import DataListLayout from '@/components/layout/DataList';
+import DataListForm from '@/components/formClass/DataListForm';
+import TableList from '@/components/tableClass/TableList';
+// import { getCurrentInstance } from 'vue';
+import list from './list';
+
+// const { proxy } = getCurrentInstance();
+// const tableData = proxy.$ref(list);
+
+// const state = proxy.$reactive({
+// });
+
+const queryData = () => {
+
+};
+const resetQuery = () => {
+
+};
+// const handleEdit = e => {
+//   console.log(e);
+// };
+
+
+</script>
+
 <template>
   <DataListLayout>
     <template #title>
@@ -5,71 +32,20 @@
     </template>
     <template #query>
       <DataListForm
-        :fields="dataListFormFields"
+        :fields="list.queryList"
         @submit="queryData"
         @reset="resetQuery"
       />
     </template>
     <template #content>
-      <el-table
-        :data="tableData"
-        style="width: 100%"
-      >
-        <el-table-column
-          prop="date"
-          label="Date"
-          width="180"
-        />
-        <el-table-column
-          prop="name"
-          label="Name"
-          width="180"
-        />
-        <el-table-column
-          prop="address"
-          label="Address"
-        />
-      </el-table>
+      <TableList
+        :table-data="list.tableData"
+        :column-data="list.columnData"
+        operation="查看"
+      />
     </template>
   </DataListLayout>
 </template>
 
-<script>
-import DataListLayout from '@/components/layout/DataList';
-import DataListForm from '@/components/formClass/DataListForm';
-import { getCurrentInstance } from 'vue';
-import list from './list';
-
-export default {
-  components: {
-    DataListLayout,
-    DataListForm,
-  },
-
-  setup() {
-    const { proxy } = getCurrentInstance();
-    const tableData = proxy.$ref(list);
-
-    const state = proxy.$reactive({
-
-    });
-
-    const queryData = () => {
-
-    };
-    const resetQuery = () => {
-
-    };
-
-    return {
-      state,
-      tableData,
-      queryData,
-      resetQuery,
-    };
-  },
-
-};
-</script>
 <style >
 </style>
