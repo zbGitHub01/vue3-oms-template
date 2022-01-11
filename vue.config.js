@@ -17,7 +17,7 @@ const titleName = process.env.VUE_APP_TITLE;
 const isDevEnv = process.env.NODE_ENV === 'development';
 
 module.exports = {
-  publicPath: './',
+  publicPath: '/app/zbsz-guarantee/',
   assetsDir: 'static',
   lintOnSave: !isDevEnv,
   productionSourceMap: false,

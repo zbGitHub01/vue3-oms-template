@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 export const asyncRoutes = [
   {
-    path: '/super',
+    path: '/guarantee',
     children: [
       {
         path: '/homePage',
@@ -17,7 +17,7 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/super',
+    path: '/guarantee',
     meta: {
       title: '订单管理',
       icon: 'icon-ddgl',
@@ -25,16 +25,16 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: '/insureList',
-        component: () => import('@/views/insure/insureList'),
+        path: '/orderList',
+        component: () => import('@/views/insure/orderList'),
         meta: {
           title: '投保订单',
           roles: [ 'sys:article:list' ],
         },
       },
       {
-        path: '/reInsureList',
-        component: () => import('@/views/insure/reInsureList'),
+        path: '/reOrderList',
+        component: () => import('@/views/orderInfo/reOrderList'),
         meta: {
           title: '退保订单',
           roles: [ 'sys:customer:list' ],
@@ -43,7 +43,7 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/super',
+    path: '/guarantee',
     children: [
       {
         path: '/dict',
@@ -58,7 +58,7 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/super',
+    path: '/guarantee',
     children: [
       {
         path: '/log',
@@ -73,7 +73,7 @@ export const asyncRoutes = [
     ],
   },
   {
-    path: '/super',
+    path: '/guarantee',
     hidden: true,
     children: [
       {
@@ -102,9 +102,7 @@ filtersRouters(asyncRoutes);
 
 const newRouter = () =>
   createRouter({
-    // base: window.__POWERED_BY_QIANKUN__ ? '/super/' : '/app/zbsz-super/',
-    history: createWebHistory(),
-    // scrollBehavior: () => ({ y: 0 }),
+    history: createWebHistory(window.__POWERED_BY_QIANKUN__ ? '/guarantee/' : '/app/zbsz-guarantee/'),
     routes: constantRoutes,
   });
 const routes = newRouter();

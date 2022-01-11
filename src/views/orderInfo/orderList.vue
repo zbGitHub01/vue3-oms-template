@@ -18,10 +18,6 @@ const queryData = () => {
 const resetQuery = () => {
 
 };
-// const handleEdit = e => {
-//   console.log(e);
-// };
-
 
 </script>
 
