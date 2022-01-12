@@ -2,7 +2,9 @@ import './public-path';
 import { createApp, computed, reactive, ref } from 'vue';
 import ElementPlus from 'element-plus';
 import App from './App.vue';
-import router from './router';
+import store from './store';
+
+import router, { asyncRoutes } from './router';
 // import * as filters from './filters'; // 全局过滤器
 
 import 'normalize.css/normalize.css'; // CSS重置的现代替代方案
@@ -22,18 +24,18 @@ function render({ data = {}, container } = {}) {
   instance.config.globalProperties.$reactive = reactive;
   instance.config.globalProperties.$ref = ref;
 
-  // console.log(instance._props);
-  // if (window.__POWERED_BY_QIANKUN__) {
-  // data.store.dispatch('permission/changeRouter', asyncRoutes);
-  // store.commit('user/SET_TOKEN', data.store.getters.token);
-  // store.commit('user/SET_SYSTEM_LIST', data.store.getters.systemList);
-  // store.commit('user/SET_ID', data.store.getters.userId);
-  // store.commit('user/SET_ROLES', data.store.getters.roles);
+  if (window.__POWERED_BY_QIANKUN__) {
+    data.store.dispatch('permission/changeRouter', asyncRoutes);
+    console.log(data);
+    store.commit('user/SET_TOKEN', data.store.getters.token);
+    store.commit('user/SET_SYSTEM_LIST', data.store.getters.systemList);
+    store.commit('user/SET_ID', data.store.getters.userId);
+    store.commit('user/SET_ROLES', data.store.getters.roles);
 
-  // router.afterEach(to => {
-  //   data.store.commit('app/PAGE_TITLE', `${process.env.VUE_APP_TITLE}-${to.meta.title}`);
-  // });
-  // }
+    router.afterEach(to => {
+      data.store.commit('app/PAGE_TITLE', `${process.env.VUE_APP_TITLE}-${to.meta.title}`);
+    });
+  }
 
 }
 
