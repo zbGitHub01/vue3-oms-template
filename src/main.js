@@ -1,6 +1,7 @@
 import './public-path';
 import { createApp, computed, reactive, ref } from 'vue';
 import ElementPlus from 'element-plus';
+import * as ElIcons from '@element-plus/icons';
 import App from './App.vue';
 import store from './store';
 
@@ -19,6 +20,9 @@ function render({ data = {}, container } = {}) {
   instance.mount(container ? container.querySelector('#app') : '#app');
   // 注册权益指令;
   instance.directive('permission', data.permission);
+  for (const name in ElIcons) {
+    instance.component(name, ElIcons[name]);
+  }
 
   instance.config.globalProperties.$computed = computed;
   instance.config.globalProperties.$reactive = reactive;
