@@ -1,60 +1,69 @@
-const tableData = [
-  {
-    orderNo: '432542345235235',
-    orderName: '张强',
-    orderPhone: '13732451480',
-    orderDate: '2021-10-10',
-    orderStatus: '已支付',
-  },
-  {
-    orderNo: '432542345235235',
-    orderName: '张强',
-    orderPhone: '13732451480',
-    orderDate: '2021-10-10',
-    orderStatus: '已支付',
-  },
-  {
-    orderNo: '432542345235235',
-    orderName: '张强',
-    orderPhone: '13732451480',
-    orderDate: '2021-10-10',
-    orderStatus: '已支付',
-  },
-  {
-    orderNo: '432542345235235',
-    orderName: '张强',
-    orderPhone: '13732451480',
-    orderDate: '2021-10-10',
-    orderStatus: '已支付',
-  },
-];
 
+import * as Format from '@/utils/format';
+import orderStatusObj from '@/dictionary/orderStatus';
 
-const columnData = [
+const columnList = [
   {
     label: '业务流水号',
     prop: 'orderNo',
-    width: 300,
   },
   {
     label: '投保人',
-    prop: 'orderName',
-    width: 300,
+    prop: 'bidderName',
   },
   {
-    label: '手机号',
-    prop: 'orderPhone',
-    width: 400,
+    label: '投保手机号',
+    prop: 'bidderContactPhone',
   },
   {
-    label: '日期',
-    prop: 'orderDate',
-    width: 300,
+    label: '被担保人',
+    prop: 'tendereeName',
+    formatter({ tendereeName }) {
+      return tendereeName === undefined ? '-- --' : tendereeName;
+    },
+  },
+  {
+    label: '项目标段名称',
+    prop: 'bidSectionName',
+    formatter({ bidSectionName }) {
+      return bidSectionName === undefined ? '-- --' : bidSectionName;
+    },
+  },
+  {
+    label: '担保公司名称',
+    prop: 'targetName',
+    formatter({ targetName }) {
+      return targetName === undefined ? '-- --' : targetName;
+    },
+    width: 250,
   },
   {
     label: '订单状态',
     prop: 'orderStatus',
-    width: 300,
+    formatter({ orderStatus }) {
+      return orderStatus === undefined ? '-- --' : orderStatusObj[orderStatus];
+    },
+  },
+  {
+    label: '担保金额（元）',
+    prop: 'amount',
+    formatter({ amount }) {
+      return Format.AmountFormat(amount);
+    },
+  },
+  {
+    label: '担保保费（元）',
+    prop: 'premium',
+    formatter({ premium }) {
+      return Format.AmountFormat(premium);
+    },
+  },
+  {
+    label: '提交时间',
+    prop: 'createTime',
+    formatter({ createTime }) {
+      return Format.DateFormat(createTime);
+    },
   },
 ];
 
@@ -94,7 +103,6 @@ const queryList = [{
 }];
 
 export default {
-  tableData,
-  columnData,
+  columnList,
   queryList,
 };

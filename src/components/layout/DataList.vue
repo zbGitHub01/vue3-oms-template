@@ -60,10 +60,10 @@ export default {
   .operation + .main{
     margin-top: 20px;
   }
-  /deep/ .el-pagination{
+  :deep(.el-pagination){
     margin-top: 20px;
   }
-  /deep/ .main>.el-table>.el-table__header-wrapper>table>thead>tr>th{
+  :deep(.main>.el-table>.el-table__header-wrapper>table>thead>tr>th){
     color: rgba(0,0,0,.85);
     font-weight: 500;
     text-align: left;

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
 import { useRouter } from 'vue-router';
+import { getToken, setToken } from '@/utils/auth';
+import store from '@/store';
 
 const router = useRouter();
 
@@ -16,6 +18,10 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
+    // 给每个请求带上 Token
+    if (store.getters.token) {
+      config.headers.authorization = getToken('Admin-Token');
+    }
     return config;
   },
   error => {
@@ -57,10 +63,10 @@ service.interceptors.response.use(
           error.message = '连接出错！';
       }
       // 返回状态是460则表示token即将过期，要更换token
-      //   if (error.response.status === 460) {
-      //     setToken('Admin-Token', error.response.headers.authorization);
-      //     return error.response.data;
-      //   }
+      if (error.response.status === 460) {
+        setToken('Admin-Token', error.response.headers.authorization);
+        return error.response.data;
+      }
       if (error.response.status === 403) {
         // 返回状态码包含403则表示没有权限，重定向到403页面
         router.push('/403');

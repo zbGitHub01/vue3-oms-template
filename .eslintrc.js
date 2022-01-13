@@ -12,6 +12,10 @@ module.exports = {
     extends: [
       'plugin:vue/strongly-recommended',
       'eslint-config-egg',
-    ]
+    ],
+    rules: {
+      'vue/no-v-model-argument':'off'
+    }
+      
   }
   

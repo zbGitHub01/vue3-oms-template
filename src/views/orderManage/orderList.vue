@@ -3,14 +3,23 @@
 import DataListLayout from '@/components/layout/DataList';
 import DataListForm from '@/components/formClass/DataListForm';
 import TableList from '@/components/tableClass/TableList';
-// import { getCurrentInstance } from 'vue';
+import { getOrderList } from '@/api/orderManage';
+import { getCurrentInstance } from 'vue';
 import list from './list';
 
-// const { proxy } = getCurrentInstance();
+const { proxy } = getCurrentInstance();
 // const tableData = proxy.$ref(list);
 
-// const state = proxy.$reactive({
-// });
+const state = proxy.$reactive({
+  tableData: [],
+  pageTotal: 0,
+});
+
+getOrderList().then(res => {
+  state.tableData = res.data.records;
+  state.pageTotal = res.data.total;
+});
+
 
 const queryData = () => {
 
@@ -35,8 +44,9 @@ const resetQuery = () => {
     </template>
     <template #content>
       <TableList
-        :table-data="list.tableData"
-        :column-data="list.columnData"
+        :table-data="state.tableData"
+        :column-list="list.columnList"
+        :total="state.pageTotal"
         operation="查看"
       />
     </template>

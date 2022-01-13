@@ -1,36 +1,47 @@
 <template>
-  <el-table
-    :data="tableData"
-    style="width: 100%"
-  >
-    <el-table-column
-      v-for="item in columnList"
-      :key="item.id"
-      :prop="item.prop"
-      :label="item.label"
-      :width="item.width? item.width : 180"
-    />
-    <el-table-column
-      label="操作"
-      width="120"
-      v-if="operation"
+  <div>
+    <el-table
+      :data="tableData"
+      style="width: 100%"
     >
-      <template #default="scope">
-        <el-button
-          size="small"
-          @click="handleEdit(scope.$index, scope.row)"
-        >
-          {{ state.operationName }}
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+      <el-table-column
+        v-for="item in columnListData"
+        :key="item.id"
+        :prop="item.prop"
+        :formatter="item.formatter"
+        :label="item.label"
+        :width="item.width? item.width : 180"
+      />
+      <el-table-column
+        label="操作"
+        width="120"
+        v-if="operation"
+      >
+        <template #default="scope">
+          <el-button
+            size="small"
+            @click="handleEdit(scope.$index, scope.row)"
+          >
+            {{ state.operationName }}
+          </el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <div class="pagination">
+      <el-pagination
+        v-model:currentPage="currentPage3"
+        :page-size="10"
+        layout="prev, pager, next, jumper"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
-import { computed, reactive } from 'vue';
-const flatten = require('flat');
-const unflatten = require('flat').unflatten;
+import { computed, reactive, ref } from 'vue';
 
 export default {
 
@@ -41,7 +52,7 @@ export default {
         return '';
       },
     },
-    columnData: {
+    columnList: {
       type: Array,
       default: () => {
         return [];
@@ -53,18 +64,24 @@ export default {
         return [];
       },
     },
+    total: {
+      type: Number,
+      default: 5,
+    },
   },
 
-  setup(props, { emit }) {
+  setup(props) {
+
+
+    const currentPage3 = ref(5);
 
     const state = reactive({
-      flatEntity: flatten(props.tableData),
       operationName: props.operation,
     });
 
-    const columnList = computed(() => {
+    const columnListData = computed(() => {
       const list = [];
-      props.columnData.forEach(e => {
+      props.columnList.forEach(e => {
         if (e.label) {
           list.push(e);
         }
@@ -73,28 +90,16 @@ export default {
     }
     );
 
-    const getEntity = () => {
-      return unflatten(state.flatEntity);
-    };
-
-    const handleSubmit = () => {
-      emit('submit', getEntity());
-    };
-
-    const handleReset = () => {
-      state.flatEntity = {};
-      emit('reset', getEntity());
-    };
-
     const handleEdit = (va, val) => {
       console.log(va, val);
+      console.log(props);
     };
 
     return {
+
+      currentPage3,
       state,
-      columnList,
-      handleSubmit,
-      handleReset,
+      columnListData,
       handleEdit,
     };
   },
@@ -103,5 +108,9 @@ export default {
 
 <style lang="less" scoped>
 
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
 
 </style>
