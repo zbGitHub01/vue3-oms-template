@@ -27,11 +27,15 @@
         </template>
       </el-table-column>
     </el-table>
-    <div class="pagination">
+    <div
+      class="pagination"
+      v-if="pagination"
+    >
       <el-pagination
-        v-model:currentPage="currentPage3"
-        :page-size="10"
-        layout="prev, pager, next, jumper"
+        v-model:currentPage="state.currentPage"
+        :page-size="state.pageSize"
+        :page-sizes="state.pageSizes"
+        layout="sizes, prev, pager, next, jumper"
         :total="total"
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
@@ -41,11 +45,15 @@
 </template>
 
 <script>
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive } from 'vue';
 
 export default {
 
   props: {
+    pagination: {
+      type: Boolean,
+      default: () => true,
+    },
     operation: {
       type: String,
       default: () => {
@@ -66,17 +74,18 @@ export default {
     },
     total: {
       type: Number,
-      default: 5,
+      default: 1,
     },
   },
 
-  setup(props) {
+  setup(props, { emit }) {
 
-
-    const currentPage3 = ref(5);
 
     const state = reactive({
       operationName: props.operation,
+      currentPage: 1,
+      pageSize: 10,
+      pageSizes: [ 10, 15, 20, 30 ],
     });
 
     const columnListData = computed(() => {
@@ -92,15 +101,24 @@ export default {
 
     const handleEdit = (va, val) => {
       console.log(va, val);
-      console.log(props);
+    };
+
+    const handleSizeChange = val => {
+      state.pageSize = val;
+      state.currentPage = 1;
+      emit('query', state.pageSize, state.currentPage);
+    };
+    const handleCurrentChange = val => {
+      state.currentPage = val;
+      emit('query', state.pageSize, state.currentPage);
     };
 
     return {
-
-      currentPage3,
       state,
       columnListData,
       handleEdit,
+      handleSizeChange,
+      handleCurrentChange,
     };
   },
 };

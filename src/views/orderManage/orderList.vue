@@ -12,14 +12,28 @@ const { proxy } = getCurrentInstance();
 
 const state = proxy.$reactive({
   tableData: [],
-  pageTotal: 0,
+  pageTotal: 1,
 });
 
-getOrderList().then(res => {
-  state.tableData = res.data.records;
-  state.pageTotal = res.data.total;
-});
 
+// getOrderList().then(res => {
+//   state.tableData = res.data.records;
+//   state.pageTotal = res.data.total;
+// });
+
+const getOrderListAgain = (pageSize, pageNum) => {
+  const pageInfo = {
+    pageNum,
+    pageSize,
+  };
+  getOrderList(pageInfo).then(res => {
+    state.tableData = res.data.records;
+    state.pageTotal = res.data.total;
+  });
+  console.log(22);
+};
+
+getOrderListAgain();
 
 const queryData = () => {
 
@@ -47,6 +61,7 @@ const resetQuery = () => {
         :table-data="state.tableData"
         :column-list="list.columnList"
         :total="state.pageTotal"
+        @query="getOrderListAgain"
         operation="查看"
       />
     </template>

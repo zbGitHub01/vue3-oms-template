@@ -70,36 +70,79 @@ const columnList = [
 const queryList = [{
   name: '业务流水号',
   type: 'input',
-  property: 'areaCode',
+  property: 'orderNo',
 }, {
   name: '投保人',
   type: 'input',
-  property: 'insCode',
+  property: 'bidderName',
 }, {
-  name: '投保日期',
+  name: '提交时间',
   type: 'daterange',
   property: 'dates',
 }, {
+}, {
   name: '投保人手机号',
   type: 'input',
-  property: 'insName',
+  property: 'bidderContactPhone',
 }, {
   name: '订单状态',
   type: 'select',
-  property: 'secuNo',
+  property: 'orderStatus',
+  placeholder: '请选择订单状态',
   options: [
     {
-      label: '全部',
+      value: '1100010001000',
+      label: '未申请',
     },
     {
-      value: '1',
-      label: '待支付',
+      value: '2100011001000',
+      label: '待审核',
     },
     {
-      value: '2',
-      label: '已完成',
+      value: '100013001000',
+      label: '投保审核失败',
+    },
+    {
+      value: '100014001000',
+      label: '取消保函',
+    },
+    {
+      value: '100012001000',
+      label: '审核通过',
+    },
+    {
+      value: '3100012001110',
+      label: '待入账',
+    },
+    {
+      value: '100012001120',
+      label: '支付成功',
+    },
+    {
+      value: '100012101120',
+      label: '密文保函开立',
+    },
+    {
+      value: '100012101120',
+      label: '已开标，待批改',
+    },
+    {
+      value: '110012201120',
+      label: '明文保函开立',
+    },
+    {
+      value: '111012101120',
+      label: '项目流标',
     },
   ],
+}, {
+  name: '被担保人',
+  type: 'input',
+  property: 'insCode',
+}, {
+  name: '项目标段名称',
+  type: 'input',
+  property: 'bidSectionName',
 }];
 
 export default {

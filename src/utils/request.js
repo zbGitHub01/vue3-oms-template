@@ -20,8 +20,10 @@ service.interceptors.request.use(
   config => {
     // 给每个请求带上 Token
     if (store.getters.token) {
-      config.headers.authorization = getToken('Admin-Token');
+      // config.headers.authorization = getToken('Admin-Token');
     }
+    // 子应用调试的token
+    config.headers.authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YnN6LWF1dGgiLCJhdWQiOiJ6YnN6IiwiY29tcGFueUlkIjoxLCJpc3MiOiJ6YnN6IiwiZXhwIjoxNjQyNTc4MTM1LCJ1c2VySWQiOjEsImlhdCI6MTY0MjQ5MTczNSwianRpIjoiZWZlYzQyMGVlMWQzNDYyYjg1ODUyMGI5ODkwOTdiNGIiLCJ1c2VybmFtZSI6ImFkbWluIn0.Rt4GpfettHSywnQRNtLCeEuW-a07wXHjWv89U2OVoGQ';
     return config;
   },
   error => {

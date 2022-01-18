@@ -38,15 +38,16 @@
         v-if="item.type === 'date'"
         v-model="state.flatEntity[item.property]"
         type="date"
-        value-format="timestamp"
+        value-format="x"
         :placeholder="item.placeholder"
       />
       <el-date-picker
         v-if="item.type === 'daterange'"
         v-model="state.flatEntity[item.property]"
         type="daterange"
-        value-format="timestamp"
-        :placeholder="item.placeholder"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期"
+        value-format="x"
       />
       <el-input
         v-if="item.type === 'textarea'"
@@ -93,9 +94,7 @@ export default {
   props: {
     fields: {
       type: Array,
-      default: () => {
-        return [];
-      },
+      default: () => [],
     },
     defaultValues: {
       type: Object,
@@ -109,7 +108,7 @@ export default {
 
     const state = reactive({
       regionOptions: regionData,
-      flatEntity: flatten(props.defaultValues),
+      flatEntity: flatten(props.defaultValues), // 扁平
     });
 
     const formFields = computed(() => {
@@ -128,6 +127,7 @@ export default {
     };
 
     const handleSubmit = () => {
+      console.log(getEntity());
       emit('submit', getEntity());
     };
 
