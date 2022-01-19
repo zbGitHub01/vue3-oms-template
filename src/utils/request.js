@@ -23,7 +23,7 @@ service.interceptors.request.use(
       // config.headers.authorization = getToken('Admin-Token');
     }
     // 子应用调试的token
-    config.headers.authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YnN6LWF1dGgiLCJhdWQiOiJ6YnN6IiwiY29tcGFueUlkIjoxLCJpc3MiOiJ6YnN6IiwiZXhwIjoxNjQyNTc4MTM1LCJ1c2VySWQiOjEsImlhdCI6MTY0MjQ5MTczNSwianRpIjoiZWZlYzQyMGVlMWQzNDYyYjg1ODUyMGI5ODkwOTdiNGIiLCJ1c2VybmFtZSI6ImFkbWluIn0.Rt4GpfettHSywnQRNtLCeEuW-a07wXHjWv89U2OVoGQ';
+    config.headers.authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YnN6LWF1dGgiLCJhdWQiOiJ6YnN6IiwiY29tcGFueUlkIjoxLCJpc3MiOiJ6YnN6IiwiZXhwIjoxNjQyNjU4OTgwLCJ1c2VySWQiOjEsImlhdCI6MTY0MjU3MjU4MCwianRpIjoiZWJiYTIxOTQ2MDJkNGJjOTljMzQ5MTAzNGQzYTZjZTkiLCJ1c2VybmFtZSI6ImFkbWluIn0.oEtf9IF0JROsxVEb-A4zwqKaUe6jx8cejOPDLCKQAbc';
     return config;
   },
   error => {

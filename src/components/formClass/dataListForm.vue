@@ -47,6 +47,7 @@
         type="daterange"
         start-placeholder="开始日期"
         end-placeholder="结束日期"
+        :default-time="state.defaultTime"
         value-format="x"
       />
       <el-input
@@ -109,6 +110,10 @@ export default {
     const state = reactive({
       regionOptions: regionData,
       flatEntity: flatten(props.defaultValues), // 扁平
+      defaultTime: [
+        new Date(2000, 1, 1, 0, 0, 0),
+        new Date(2000, 2, 1, 23, 59, 59),
+      ],
     });
 
     const formFields = computed(() => {
@@ -127,13 +132,12 @@ export default {
     };
 
     const handleSubmit = () => {
-      console.log(getEntity());
       emit('submit', getEntity());
     };
 
     const handleReset = () => {
       state.flatEntity = {};
-      emit('reset', getEntity());
+      emit('reset', {});
     };
 
     return {

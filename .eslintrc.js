@@ -14,7 +14,8 @@ module.exports = {
       'eslint-config-egg',
     ],
     rules: {
-      'vue/no-v-model-argument':'off'
+      'vue/no-v-model-argument':'off',
+      'vue/no-reserved-props':'off'
     }
       
   }

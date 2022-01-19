@@ -1,4 +1,3 @@
-
 <script setup>
 import DataListLayout from '@/components/layout/DataList';
 import DataListForm from '@/components/formClass/DataListForm';
@@ -13,16 +12,12 @@ const { proxy } = getCurrentInstance();
 const state = proxy.$reactive({
   tableData: [],
   pageTotal: 1,
+  queryNewData: {},
 });
-
-
-// getOrderList().then(res => {
-//   state.tableData = res.data.records;
-//   state.pageTotal = res.data.total;
-// });
 
 const getOrderListAgain = (pageSize, pageNum) => {
   const pageInfo = {
+    ...state.queryNewData,
     pageNum,
     pageSize,
   };
@@ -30,16 +25,24 @@ const getOrderListAgain = (pageSize, pageNum) => {
     state.tableData = res.data.records;
     state.pageTotal = res.data.total;
   });
-  console.log(22);
 };
 
 getOrderListAgain();
 
-const queryData = () => {
+const queryData = queryData => {
+  state.queryNewData = Object.keys(queryData).includes('dateArray') ? {
+    ...queryData,
+    submitStartDate: queryData.dateArray[0],
+    submitEndDate: queryData.dateArray[1],
+  } : queryData;
+
+  delete state.queryNewData.dateArray;
+  getOrderListAgain();
 
 };
-const resetQuery = () => {
-
+const resetQuery = val => {
+  state.queryNewData = val;
+  getOrderListAgain();
 };
 
 </script>

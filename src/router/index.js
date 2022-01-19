@@ -34,6 +34,10 @@ export const asyncRoutes = [
         },
       },
       {
+        path: '/orderList/orderDetails',
+        component: () => import('@/views/orderManage/orderList/orderDetails'),
+      },
+      {
         path: '/returnList',
         component: () => import('@/views/orderManage/returnList'),
         meta: {

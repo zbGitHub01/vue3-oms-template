@@ -1,27 +1,37 @@
 
 <template>
-  <div class="dataListLayout">
-    <div class="title">
-      <slot name="title" />
-    </div>
-    <div
-      class="query"
-      v-if="$slots.query"
-    >
-      <slot name="query" />
-    </div>
-    <div class="content">
+  <div class="dataDetailsLayout">
+    <div class="header">
+      <div class="title">
+        <slot name="title" />
+      </div>
       <div
         class="operation"
         v-if="$slots.operation"
       >
         <slot name="operation" />
       </div>
+    </div>
+
+    <div
+      class="section"
+      v-if="$slots.section"
+    >
+      <slot name="section" />
+    </div>
+
+    <div class="content">
       <div class="main">
         <slot name="content" />
       </div>
     </div>
-    <slot name="dialog" />
+
+    <div
+      class="footer"
+      v-if="$slots.operation"
+    >
+      <slot name="footer" />
+    </div>
   </div>
 </template>
 <script>
@@ -30,20 +40,25 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dataListLayout {
+.dataDetailsLayout {
   background-color:#f7f8fa;
   padding-bottom: 20px;
-  .title {
-    width: 100%;
-    font-size: 20px;
-    line-height: 32px;
-    font-weight: 600;
-    padding: 16px 20px;
+  .header {
+    display: flex;
+    justify-content: space-between;
     background-color: #fff;
+    padding: 16px 20px;
     border-bottom: 1px solid #e8e8e8;
     box-sizing: border-box;
   }
-  .query,.content {
+  .title {
+    width: 50%;
+    font-size: 20px;
+    line-height: 32px;
+    font-weight: 600;
+
+  }
+  .section,.content {
     margin: 10px 0 0;
     padding: 16px 24px 0;
     box-sizing: border-box;

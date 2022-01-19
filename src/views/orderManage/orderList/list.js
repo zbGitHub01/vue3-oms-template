@@ -78,7 +78,7 @@ const queryList = [{
 }, {
   name: '提交时间',
   type: 'daterange',
-  property: 'dates',
+  property: 'dateArray',
 }, {
 }, {
   name: '投保人手机号',
@@ -138,7 +138,7 @@ const queryList = [{
 }, {
   name: '被担保人',
   type: 'input',
-  property: 'insCode',
+  property: 'tendereeName',
 }, {
   name: '项目标段名称',
   type: 'input',
