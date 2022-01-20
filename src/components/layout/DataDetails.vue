@@ -66,9 +66,14 @@ export default {
   }
   .content{
     padding-bottom: 16px;
+    .main {
+      display: flex;
+      justify-content: center;
+    }
   }
   .operation + .main{
     margin-top: 20px;
+
   }
   :deep(.el-pagination){
     margin-top: 20px;

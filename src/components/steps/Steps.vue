@@ -1,18 +1,16 @@
 <template>
-  <div class="main">
-    <el-steps
-      :active="props.active"
-      align-center
-      :space="props.space"
-    >
-      <el-step
-        v-for="item in props.stepList"
-        :key="item.value"
-        :title="item.title"
-        :description="item.description"
-      />
-    </el-steps>
-  </div>
+  <el-steps
+    :active="props.active"
+    align-center
+    :space="props.space"
+  >
+    <el-step
+      v-for="item in props.stepList"
+      :key="item.value"
+      :title="item.title"
+      :description="item.description"
+    />
+  </el-steps>
 </template>
 
 <script setup>
@@ -24,8 +22,8 @@ const props = defineProps({
     default: '',
   },
   active: {
-    type: String,
-    default: '3',
+    type: Number,
+    default: 3,
   },
   stepList: {
     type: Array,
@@ -37,8 +35,5 @@ const props = defineProps({
 
 </script>
 <style lang="less" scoped>
-.main {
-  display: flex;
-  justify-content: center;
-}
+
 </style>
