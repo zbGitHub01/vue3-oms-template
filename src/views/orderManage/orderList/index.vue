@@ -1,12 +1,15 @@
 <script setup>
-import DataListLayout from '@/components/layout/DataList';
 import DataListForm from '@/components/formClass/DataListForm';
+import DataListLayout from '@/components/layout/DataList';
 import TableList from '@/components/tableClass/TableList';
-import { getOrderList } from '@/api/orderManage';
+import { getOrderList, getOrderInfo } from '@/api/orderManage';
 import { getCurrentInstance } from 'vue';
+import { useRouter } from 'vue-router';
+import store from '@/store';
 import list from './list';
 
 const { proxy } = getCurrentInstance();
+const router = useRouter();
 // const tableData = proxy.$ref(list);
 
 const state = proxy.$reactive({
@@ -45,6 +48,15 @@ const resetQuery = val => {
   getOrderListAgain();
 };
 
+const handleOperation = value => {
+  getOrderInfo({ orderNo: value.orderNo }).then(res => {
+
+    store.dispatch('order/setDetails', res.data);
+    console.log('woshi', store.getters.details);
+    router.push({ path: '/order/details' });
+  });
+};
+
 </script>
 
 <template>
@@ -65,6 +77,7 @@ const resetQuery = val => {
         :column-list="list.columnList"
         :total="state.pageTotal"
         @query="getOrderListAgain"
+        @handle-operation="handleOperation"
         operation="查看"
       />
     </template>

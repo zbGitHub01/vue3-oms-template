@@ -100,7 +100,7 @@ export default {
     );
 
     const handleEdit = (va, val) => {
-      console.log(va, val);
+      emit('handleOperation', val);
     };
 
     const handleSizeChange = val => {

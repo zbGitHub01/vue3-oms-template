@@ -1,6 +1,6 @@
 
 /**
- * 订单详情
+ * 订单信息
  */
 
 import request from '@/utils/request';
@@ -10,6 +10,16 @@ import request from '@/utils/request';
 export function getOrderList(params) {
   return request({
     url: 'orderInfo/page',
+    methods: 'get',
+    params,
+  });
+}
+
+
+// 获取订单详情
+export function getOrderInfo(params) {
+  return request({
+    url: 'orderInfo/get',
     methods: 'get',
     params,
   });

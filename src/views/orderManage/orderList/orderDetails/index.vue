@@ -1,7 +1,12 @@
 <script setup>
 import { reactive } from 'vue';
+import { useRouter } from 'vue-router';
+import list from './list';
 import DataDetails from '@/components/layout/DataDetails';
 import Steps from '@/components/steps/Steps';
+
+const route = useRouter();
+
 const state = reactive({
   stepList: [
     {
@@ -21,34 +26,11 @@ const state = reactive({
       description: '32323232',
     },
   ],
-  descriptionList: [
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-    {
-      label: '业务流水号',
-      value: 'adada',
-    },
-  ],
 });
 
+const handleClick = () => {
+  route.go(-1);
+};
 
 </script>
 
@@ -58,7 +40,10 @@ const state = reactive({
       订单详情（xxxxxxxxx）
     </template>
     <template #operation>
-      <el-button type="primary">
+      <el-button
+        type="primary"
+        @click="handleClick"
+      >
         返回列表
       </el-button>
     </template>
@@ -79,7 +64,7 @@ const state = reactive({
             border
           >
             <el-descriptions-item
-              v-for="(item,index) in state.descriptionList"
+              v-for="(item,index) in list.basicInfo"
               :key="index"
               :label="item.label"
               label-align="center"
@@ -99,7 +84,7 @@ const state = reactive({
             border
           >
             <el-descriptions-item
-              v-for="(item,index) in state.descriptionList"
+              v-for="(item,index) in list.guaranteeInfo"
               :key="index"
               :label="item.label"
               label-align="center"
@@ -115,11 +100,11 @@ const state = reactive({
         <div>
           <el-descriptions
             title="基本户信息"
-            :column="3"
+            :column="2"
             border
           >
             <el-descriptions-item
-              v-for="(item,index) in state.descriptionList"
+              v-for="(item,index) in list.basicAccountInfo"
               :key="index"
               :label="item.label"
               label-align="center"

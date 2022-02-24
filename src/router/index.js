@@ -25,7 +25,8 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: '/orderList',
+        path: '/order',
+        name: 'orderList',
         component: () => import('@/views/orderManage/orderList'),
         meta: {
           title: '投保订单',
@@ -34,7 +35,8 @@ export const asyncRoutes = [
         },
       },
       {
-        path: '/orderList/orderDetails',
+        path: '/order/details',
+        name: 'orderDetails',
         component: () => import('@/views/orderManage/orderList/orderDetails'),
       },
       {

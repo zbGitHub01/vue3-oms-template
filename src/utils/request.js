@@ -1,11 +1,8 @@
 import axios from 'axios';
 import { ElMessage } from 'element-plus';
-import { useRouter } from 'vue-router';
+import router from '@/router';
 import { getToken, setToken } from '@/utils/auth';
 import store from '@/store';
-
-const router = useRouter();
-
 
 const service = axios.create({
   baseURL: '/api/oms',
@@ -23,7 +20,7 @@ service.interceptors.request.use(
       // config.headers.authorization = getToken('Admin-Token');
     }
     // 子应用调试的token
-    config.headers.authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YnN6LWF1dGgiLCJhdWQiOiJ6YnN6IiwiY29tcGFueUlkIjoxLCJpc3MiOiJ6YnN6IiwiZXhwIjoxNjQyNjU4OTgwLCJ1c2VySWQiOjEsImlhdCI6MTY0MjU3MjU4MCwianRpIjoiZWJiYTIxOTQ2MDJkNGJjOTljMzQ5MTAzNGQzYTZjZTkiLCJ1c2VybmFtZSI6ImFkbWluIn0.oEtf9IF0JROsxVEb-A4zwqKaUe6jx8cejOPDLCKQAbc';
+    config.headers.authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ6YnN6LWF1dGgiLCJhdWQiOiJ6YnN6IiwiY29tcGFueUlkIjoxLCJpc3MiOiJ6YnN6IiwiZXhwIjoxNjQyNzQ5NzYxLCJ1c2VySWQiOjEsImlhdCI6MTY0MjY2MzM2MSwianRpIjoiMDAzOWMyOThiYjYzNDQ3Y2EzOGJmOGRjM2RjYTBlNzciLCJ1c2VybmFtZSI6ImFkbWluIn0.u7upjxJiopfJ9wZ0wvOBhzIGQvxzkyYuT1fWB-Prsa8';
     return config;
   },
   error => {
